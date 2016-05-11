@@ -4,12 +4,12 @@ import argparse
 import datetime
 import json
 import uuid
+import pystache
 
 
 def generate(data):
-    # TODO
-    print(json.dumps(data))
-    pass
+    with open(data['invoice_template'], 'r') as template:
+        print(pystache.render(template.read(), **data))
 
 if __name__ == "__main__":
     date = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -25,10 +25,10 @@ if __name__ == "__main__":
 
     generate({
         'date_of_sale': args.date_of_sale,
-        'from': args.issuer,
+        'issuer': args.issuer,
+        'invoice_template': args.template,
         'issue_date': args.issue_date,
         'items': list(map(json.loads, args.ITEMS)),
-        'template': args.template,
-        'to': args.recipient,
+        'recipient': args.recipient,
         'uuid': str(uuid.uuid4())
     })

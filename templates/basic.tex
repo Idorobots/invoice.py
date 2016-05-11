@@ -1,0 +1,22 @@
+\documentclass{article}
+
+\begin{document}
+  Invoice \#{{uuid}}
+
+  Date of sale: {{date_of_sale}}
+
+  Date of issue: {{issue_date}}
+
+  From:
+  {{issuer}}
+
+  To:
+  {{recipient}}
+
+  Items:
+  \begin{itemize}
+    {{#items}}
+    \item{ {{name}} - {{value}} {{currency}} }
+    {{/items}}
+  \end{itemize}
+\end{document}
