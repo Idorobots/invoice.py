@@ -26,11 +26,11 @@ if __name__ == "__main__":
 
     generate({
         'date_of_sale': args.date_of_sale,
-        'issuer': args.issuer,
+        'invoice_number': args.number,
         'invoice_template': args.template,
+        'issuer': args.issuer,
         'issue_date': args.issue_date,
         'items': list(map(json.loads, args.ITEMS)),
-        'number': args.number,
         'recipient': args.recipient,
         'uuid': str(uuid.uuid4())
     })
