@@ -1,24 +1,63 @@
-\documentclass{article}
+\documentclass[11pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{fixltx2e}
+\usepackage{longtable}
+\usepackage[parfill]{parskip}
+\pagestyle{empty}
 
 \begin{document}
-  Invoice \#{{invoice_number}} (ID: {{uuid}})
 
-  Date of sale: {{date_of_sale}}
+\begin{center}
+  \Large
+  \textbf{Invoice \#{{invoice_number}}}
+\end{center}
 
-  Date of issue: {{issue_date}}
+\textbf{Issuer:} \\
+       {{issuer.name}} \\
+       {{issuer.address}} \\
+       {{issuer.numbers}} \\
+       bank account: {{issuer.bank}} \\
+       {{issuer.extra}}
 
-  From:
-  {{issuer}}
+\textbf{Recipient:} \\
+       {{recipient.name}} \\
+       {{recipient.address}} \\
+       {{recipient.numbers}} \\
+       {{recipient.extra}}
 
-  To:
-  {{recipient}}
+\textbf{Date of sale:} {{date_of_sale}} \\
+\textbf{Date of issue:} {{issue_date}}
 
-  Items:
-  \begin{itemize}
+\newcounter{ItemIndex}
+\newcommand{\itemindex}{\stepcounter{ItemIndex} \theItemIndex}
+
+\begin{center}
+  \small
+  \begin{tabular}{rlrrlrrrr}
+    \# & title & net price & qt. & unit & net amount & VAT [\%] & VAT [{{currency}}] & amount \\
+    \hline
     {{#items}}
-    \item{ {{name}} - {{value}} {{currency}} }
+     \itemindex & {{name}} & {{net_price}} & {{quantity}} & {{quantity_unit}} & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
     {{/items}}
-  \end{itemize}
 
-  Payment to: {{iban}} due {{due_date}}
+    \hline
+    & \textbf{Total:} &  &  &  & {{total_net_amount}} & - & {{total_tax}} & {{total_amount}} \\
+    {{#taxes}}
+      &  &  &  &  & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
+    {{/taxes}}
+  \end{tabular}
+\end{center}
+
+\textbf{Total:} {{total}} {{currency}} \\
+\textbf{Due date:} {{due_date}} \\
+\textbf{Payment to:} {{issuer.bank}}
+
+\begin{center}
+  \tiny
+  {{uuid}}
+\end{center}
 \end{document}
