@@ -12,9 +12,11 @@
 \begin{document}
 
 \begin{center}
-  \Large
+  \LARGE
   \textbf{Invoice \#{{invoice_number}}}
 \end{center}
+
+\vspace{1cm}
 
 \textbf{Issuer:} \\
        {{issuer.name}} \\
@@ -32,9 +34,10 @@
 \textbf{Date of sale:} {{date_of_sale}} \\
 \textbf{Date of issue:} {{issue_date}}
 
+\vspace{1cm}
+
 \newcounter{ItemIndex}
 \newcommand{\itemindex}{\stepcounter{ItemIndex} \theItemIndex}
-
 \newcounter{TaxIndex}
 \newcommand{\multiline}[1]{\begin{tabular}{@{}c@{}}#1\end{tabular}}
 
@@ -56,10 +59,13 @@
   \end{tabular}
 \end{center}
 
+\vspace{1cm}
+
 \textbf{Total: {{total_amount}} {{currency}}} \\
 \textbf{Due date:} {{due_date}} \\
 \textbf{Payment to:} {{issuer.bank}}
 
+\vfill
 \begin{center}
   \tiny
   {{uuid}}
