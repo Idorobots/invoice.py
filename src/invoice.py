@@ -7,6 +7,19 @@ import uuid
 import pystache
 
 
+def compute_amounts(data):
+    for item in data['items']:
+        net_amount = item['net_price'] * item['quantity']
+        vat_amount = net_amount * item['vat']/100.0
+        amount = net_amount + vat_amount
+        item['net_amount'] = net_amount
+        item['vat_amount'] = vat_amount
+        item['amount'] = amount
+    return data
+
+def process(data):
+    return compute_amounts(data)
+
 def generate(data):
     with open(data['invoice_template'], 'r') as template:
         print(pystache.render(template.read(), **data))
@@ -31,7 +44,7 @@ if __name__ == "__main__":
 
     args = p.parse_args()
 
-    generate({
+    generate(process({
         'date_of_sale': args.date_of_sale,
         'due_date': args.due_date,
         'invoice_number': args.number,
@@ -41,4 +54,4 @@ if __name__ == "__main__":
         'items': list(map(json.loads, args.ITEMS)),
         'recipient': json.loads(args.recipient),
         'uuid': str(uuid.uuid4())
-    })
+    }))
