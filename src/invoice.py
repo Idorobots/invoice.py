@@ -17,8 +17,14 @@ def compute_amounts(data):
         item['amount'] = amount
     return data
 
+def compute_totals(data):
+    data['total_amount'] = sum([i['amount'] for i in data['items']])
+    data['total_net_amount'] = sum([i['net_amount'] for i in data['items']])
+    data['total_vat_amount'] = sum([i['vat_amount'] for i in data['items']])
+    return data
+
 def process(data):
-    return compute_amounts(data)
+    return compute_totals(compute_amounts(data))
 
 def generate(data):
     with open(data['invoice_template'], 'r') as template:
