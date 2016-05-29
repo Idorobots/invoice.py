@@ -31,7 +31,9 @@ def compute_tax_summary(data):
     return data
 
 def process(data):
-    return compute_tax_summary(compute_totals(compute_amounts(data)))
+    d = compute_tax_summary(compute_totals(compute_amounts(data)))
+    d['items'] = sorted(d['items'], key=lambda x: -x['amount'])
+    return d
 
 def generate(data):
     with open(data['invoice_template'], 'r') as template:
