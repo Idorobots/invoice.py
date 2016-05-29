@@ -23,8 +23,15 @@ def compute_totals(data):
     data['total_vat_amount'] = sum([i['vat_amount'] for i in data['items']])
     return data
 
+def compute_tax_summary(data):
+    data['taxes'] = []
+    for l in reversed(list(set(sorted([i['vat'] for i in data['items']])))):
+        items = [i for i in data['items'] if i['vat'] == l]
+        data['taxes'].append(compute_totals({'vat': l, 'items': items}))
+    return data
+
 def process(data):
-    return compute_totals(compute_amounts(data))
+    return compute_tax_summary(compute_totals(compute_amounts(data)))
 
 def generate(data):
     with open(data['invoice_template'], 'r') as template:

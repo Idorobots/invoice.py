@@ -35,6 +35,8 @@
 \newcounter{ItemIndex}
 \newcommand{\itemindex}{\stepcounter{ItemIndex} \theItemIndex}
 
+\newcounter{TaxIndex}
+
 \begin{center}
   \small
   \begin{tabular}{rlrrlrrrr}
@@ -45,14 +47,15 @@
     {{/items}}
 
     \hline
-    & \textbf{Total:} &  &  &  & {{total_net_amount}} & - & {{total_vat_amount}} & {{total_amount}} \\
+    & \textbf{total:} &  &  &  & {{total_net_amount}} & - & {{total_vat_amount}} & {{total_amount}} \\
+    \hline
     {{#taxes}}
-      &  &  &  &  & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
+      & \ifnum \theTaxIndex=0 \textbf{including:}\stepcounter{TaxIndex} \fi &  &  &  & {{total_net_amount}} & {{vat}} & {{total_vat_amount}} & {{total_amount}} \\
     {{/taxes}}
   \end{tabular}
 \end{center}
 
-\textbf{Total:} {{total}} {{currency}} \\
+\textbf{Total:} {{total_amount}} {{currency}} \\
 \textbf{Due date:} {{due_date}} \\
 \textbf{Payment to:} {{issuer.bank}}
 
