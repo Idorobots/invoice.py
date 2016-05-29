@@ -53,11 +53,13 @@ if __name__ == "__main__":
     p.add_argument('--number', '-n', help='names the number of the invoice')
     p.add_argument('--template', '-t', help='selects invoice template')
     p.add_argument('--recipient', '-r', help='names the recipient of the invoice')
+    p.add_argument('--currency', '-c', help='sets the currency of the invoice', default='PLN')
     p.add_argument('ITEMS', nargs='+', help='invoice items')
 
     args = p.parse_args()
 
     generate(process({
+        'currency': args.currency,
         'date_of_sale': args.date_of_sale,
         'due_date': args.due_date,
         'invoice_number': args.number,

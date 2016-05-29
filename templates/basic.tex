@@ -36,26 +36,27 @@
 \newcommand{\itemindex}{\stepcounter{ItemIndex} \theItemIndex}
 
 \newcounter{TaxIndex}
+\newcommand{\multiline}[1]{\begin{tabular}{@{}c@{}}#1\end{tabular}}
 
 \begin{center}
   \small
-  \begin{tabular}{rlrrlrrrr}
-    \# & title & net price & qt. & unit & net amount & VAT [\%] & VAT [{{currency}}] & amount \\
+  \begin{tabular}{rlrrrrrr}
+    \textbf{\#} & \textbf{title} & \multiline{\textbf{net price} \\ {[{{currency}}]}} & \textbf{qty.} & \multiline{\textbf{net amount} \\ {[{{currency}}]}} & \multiline{\textbf{VAT} \\ {[\%]}} & \multiline{\textbf{VAT} \\ {[{{currency}}]}} & \multiline{\textbf{amount} \\ {[{{currency}}]}} \\
     \hline
     {{#items}}
-     \itemindex & {{name}} & {{net_price}} & {{quantity}} & {{quantity_unit}} & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
+     \itemindex & {{name}} & {{net_price}} & {{quantity}} {{quantity_unit}} & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
     {{/items}}
 
     \hline
-    & \textbf{total:} &  &  &  & {{total_net_amount}} & - & {{total_vat_amount}} & {{total_amount}} \\
+    & \textbf{total:} &  &  & {{total_net_amount}} & - & {{total_vat_amount}} & \textbf{ {{total_amount}}} \\
     \hline
     {{#taxes}}
-      & \ifnum \theTaxIndex=0 \textbf{including:}\stepcounter{TaxIndex} \fi &  &  &  & {{total_net_amount}} & {{vat}} & {{total_vat_amount}} & {{total_amount}} \\
+      & \ifnum \theTaxIndex=0 \textbf{including:}\stepcounter{TaxIndex} \fi &  &  & {{total_net_amount}} & {{vat}} & {{total_vat_amount}} & {{total_amount}} \\
     {{/taxes}}
   \end{tabular}
 \end{center}
 
-\textbf{Total:} {{total_amount}} {{currency}} \\
+\textbf{Total: {{total_amount}} {{currency}}} \\
 \textbf{Due date:} {{due_date}} \\
 \textbf{Payment to:} {{issuer.bank}}
 
