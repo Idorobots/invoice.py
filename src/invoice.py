@@ -52,7 +52,8 @@ if __name__ == "__main__":
     p.add_argument('--due-date', help='payment due date', default=due)
     p.add_argument('--issuer', '-i', help='names the issuer of the invoice')
     p.add_argument('--issue-date', '-d', help='invoice issue date', default=date)
-    p.add_argument('--number', '-n', help='names the number of the invoice')
+    p.add_argument('--number', '-n', help='consecutive number of the invoice')
+    p.add_argument('--number-format', '-f', help='pystache format of the invoice number', default='{{year}}/{{month}}/{{number}}')
     p.add_argument('--template', '-t', help='selects invoice template')
     p.add_argument('--recipient', '-r', help='names the recipient of the invoice')
     p.add_argument('--currency', '-c', help='sets the currency of the invoice', default='PLN')
@@ -60,15 +61,21 @@ if __name__ == "__main__":
 
     args = p.parse_args()
 
-    generate(process({
+    data = {
         'currency': args.currency,
         'date_of_sale': args.date_of_sale,
         'due_date': args.due_date,
-        'invoice_number': args.number,
         'invoice_template': args.template,
         'issuer': json.loads(args.issuer),
         'issue_date': args.issue_date,
         'items': list(map(json.loads, args.ITEMS)),
+        'number': args.number,
+        'number_format': args.number_format,
         'recipient': json.loads(args.recipient),
-        'uuid': str(uuid.uuid4())
-    }))
+        'uuid': str(uuid.uuid4()),
+        'year': d.strftime("%Y"),
+        'month': d.strftime("%m"),
+        'day': d.strftime("%d")
+    }
+    data['invoice_number'] = pystache.render(data['number_format'], **data)
+    generate(process(data))
