@@ -44,10 +44,10 @@
 \begin{center}
   \small
   \begin{tabular}{rlrrrrrr}
-    \textbf{\#} & \textbf{title} & \multiline{\textbf{net price} \\ {[{{currency}}]}} & \textbf{qty.} & \multiline{\textbf{net amount} \\ {[{{currency}}]}} & \multiline{\textbf{VAT} \\ {[\%]}} & \multiline{\textbf{VAT} \\ {[{{currency}}]}} & \multiline{\textbf{amount} \\ {[{{currency}}]}} \\
+    \textbf{\#} & \textbf{title} & \multiline{\textbf{net price} \\ {[{{currency}}]}} & \multiline{\textbf{quantity} \\ {[unit]}} & \multiline{\textbf{net amount} \\ {[{{currency}}]}} & \multiline{\textbf{VAT} \\ {[\%]}} & \multiline{\textbf{VAT} \\ {[{{currency}}]}} & \multiline{\textbf{amount} \\ {[{{currency}}]}} \\
     \hline
     {{#items}}
-     \itemindex & {{name}} & {{net_price}} & {{quantity}} {{quantity_unit}} & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
+     \itemindex & {{name}} & {{net_price}} & {{quantity}} {{#quantity_unit}} [{{quantity_unit}}] {{/quantity_unit}} & {{net_amount}} & {{vat}} & {{vat_amount}} & {{amount}} \\
     {{/items}}
 
     \hline
