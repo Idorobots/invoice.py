@@ -72,6 +72,7 @@ if __name__ == "__main__":
     p.add_argument('--template', '-t', help='selects invoice template')
     p.add_argument('--recipient', '-r', help='names the recipient of the invoice')
     p.add_argument('--currency', '-c', help='sets the currency of the invoice', default='PLN')
+    p.add_argument('--uuid', '-u', help='a UUID for internal use', default=str(uuid.uuid4()))
     p.add_argument('ITEMS', nargs='+', help='invoice items')
 
     args = p.parse_args()
@@ -87,7 +88,7 @@ if __name__ == "__main__":
         'number': args.number,
         'number_format': args.number_format,
         'recipient': json.loads(args.recipient),
-        'uuid': str(uuid.uuid4()),
+        'uuid': args.uuid,
         'year': d.strftime("%Y"),
         'month': d.strftime("%m"),
         'day': d.strftime("%d")
