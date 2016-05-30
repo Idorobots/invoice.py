@@ -3,8 +3,9 @@
 import argparse
 import datetime
 import json
-import uuid
 import pystache
+import string
+import uuid
 
 
 def compute_amounts(data):
@@ -30,10 +31,24 @@ def compute_tax_summary(data):
         data['taxes'].append(compute_totals({'vat': l, 'items': items}))
     return data
 
+def maybe_stringify(key, value):
+    if 'amount' in key or 'price' in key:
+        return '{:.2f}'.format(value)
+    else:
+        return stringify_amounts(value)
+
+def stringify_amounts(data):
+    if type(data) == type({}):
+         return {k: maybe_stringify(k, v) for k, v in data.items()}
+    elif type(data) == type([]):
+        return [stringify_amounts(v) for v in data]
+    else:
+        return data
+
 def process(data):
     d = compute_tax_summary(compute_totals(compute_amounts(data)))
     d['items'] = sorted(d['items'], key=lambda x: -x['amount'])
-    return d
+    return stringify_amounts(d)
 
 def generate(data):
     with open(data['invoice_template'], 'r') as template:
