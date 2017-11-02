@@ -11,8 +11,11 @@ import uuid
 def compute_amounts(data):
     rate = data['exchange_rate']
     for item in data['items']:
+        vat = item['vat']
+        if type(item['vat']) == str:
+            vat = 0
         net_amount = item['net_price'] * item['quantity']
-        vat_amount = net_amount * item['vat']/100.0
+        vat_amount = net_amount * vat / 100.0
         amount = net_amount + vat_amount
         item['net_amount'] = net_amount
         item['vat_amount'] = vat_amount
