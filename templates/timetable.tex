@@ -1,0 +1,33 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{fixltx2e}
+\usepackage{longtable}
+\usepackage[parfill]{parskip}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+  \LARGE
+  \textbf{Time table for Invoice \# {{invoice_number}}}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+  \small
+  \input{ "{{time_table_file}}" }
+\end{center}
+
+\vspace{1cm}
+
+\vfill
+\begin{center}
+  \tiny
+  {{uuid}}
+\end{center}
+\end{document}
