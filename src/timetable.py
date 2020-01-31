@@ -7,6 +7,11 @@ import pystache
 import string
 import uuid
 
+def slurp(filename):
+  result = ""
+  with open(filename) as f:
+    result = f.read()
+  return result
 
 def generate(data):
     with open(data['time_table_template'], 'r') as template:
@@ -29,7 +34,7 @@ if __name__ == "__main__":
 
     data = {
         'time_table_template': args.template,
-        'time_table_file': args.time_table_file,
+        'time_table_file': slurp(args.time_table_file),
         'number': args.number,
         'number_format': args.number_format,
         'uuid': args.uuid,
