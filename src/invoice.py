@@ -111,7 +111,7 @@ if __name__ == "__main__":
         'invoice_template': args.template,
         'issuer': json.loads(args.issuer),
         'issue_date': args.issue_date,
-        'items': list(map(json.loads, args.ITEMS)),
+        'items': list(filter(lambda x: x["quantity"] != 0, map(json.loads, args.ITEMS))),
         'number': args.number,
         'number_format': args.number_format,
         'recipient': json.loads(args.recipient),
