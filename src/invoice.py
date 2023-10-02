@@ -7,6 +7,8 @@ import pystache
 import string
 import uuid
 
+DATE_FORMAT = "%Y-%m-%d"
+
 
 def compute_amounts(data):
     rate = data['exchange_rate']
@@ -72,22 +74,22 @@ def generate(data):
 
 if __name__ == "__main__":
     def date_to_str(d):
-        return d.strftime("%Y-%m-%d")
+        return d.strftime(DATE_FORMAT)
 
-    d = datetime.datetime.now()
-    date = date_to_str(d)
-    due = date_to_str(d + datetime.timedelta(days=14))
-    exchange = date_to_str(d - datetime.timedelta(days=1))
+    default = datetime.datetime.now()
+    default_date = date_to_str(default)
+    default_due = date_to_str(default + datetime.timedelta(days=14))
+    default_exchange = date_to_str(default - datetime.timedelta(days=1))
 
     p = argparse.ArgumentParser()
     p.add_argument('--currency', '-c', help='sets the currency of the invoice', default='PLN')
     p.add_argument('--currency-local', help='sets the local currency of the invoice', default='PLN')
-    p.add_argument('--date-of-sale', '-s', help='date of sale', default=date)
-    p.add_argument('--due-date', help='payment due date', default=due)
+    p.add_argument('--date-of-sale', '-s', help='date of sale', default=default_date)
+    p.add_argument('--due-date', help='payment due date', default=default_due)
     p.add_argument('--exchange-rate', '-e', help="exchange rate of the currencies", default="1.0")
-    p.add_argument('--exchange-rate-date', help="date of the exchange rate", default=exchange)
+    p.add_argument('--exchange-rate-date', help="date of the exchange rate", default=default_exchange)
     p.add_argument('--issuer', '-i', help='names the issuer of the invoice')
-    p.add_argument('--issue-date', '-d', help='invoice issue date', default=date)
+    p.add_argument('--issue-date', '-d', help='invoice issue date', default=default_date)
     p.add_argument('--number', '-n', help='consecutive number of the invoice')
     p.add_argument('--number-format', '-f', help='pystache format of the invoice number', default='{{year}}/{{month}}/{{number}}')
     p.add_argument('--template', '-t', help='selects invoice template')
@@ -96,6 +98,8 @@ if __name__ == "__main__":
     p.add_argument('ITEMS', nargs='+', help='invoice items')
 
     args = p.parse_args()
+
+    d = datetime.datetime.strptime(args.date_of_sale, DATE_FORMAT)
 
     data = {
         'currency': args.currency,
