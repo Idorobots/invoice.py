@@ -7,6 +7,9 @@ import pystache
 import string
 import uuid
 
+DATE_FORMAT = "%Y-%m-%d"
+
+
 def slurp(filename):
   result = ""
   with open(filename) as f:
@@ -21,7 +24,8 @@ if __name__ == "__main__":
     def date_to_str(d):
         return d.strftime("%Y-%m-%d")
 
-    d = datetime.datetime.now()
+    default = datetime.datetime.now()
+    default_date = date_to_str(default)
 
     p = argparse.ArgumentParser()
     p.add_argument('--number', '-n', help='consecutive number of the invoice')
@@ -29,8 +33,11 @@ if __name__ == "__main__":
     p.add_argument('--template', '-t', help='selects time table template')
     p.add_argument('--time-table-file', help='time table contents')
     p.add_argument('--uuid', '-u', help='a UUID for internal use', default=str(uuid.uuid4()))
+    p.add_argument('--date-of-sale', '-s', help='date of sale', default=default_date)
 
     args = p.parse_args()
+
+    d = datetime.datetime.strptime(args.date_of_sale, DATE_FORMAT)
 
     data = {
         'time_table_template': args.template,
