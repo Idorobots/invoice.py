@@ -66,6 +66,10 @@ def stringify_amounts(data):
 def process(data):
     d = compute_tax_summary(compute_totals(compute_amounts(data)))
     d['items'] = sorted(d['items'], key=lambda x: -x['amount'])
+
+    for i, item in enumerate(d['items']):
+        item['index'] = i + 1
+
     return stringify_amounts(d)
 
 def generate(data):

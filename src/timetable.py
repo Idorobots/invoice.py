@@ -22,7 +22,7 @@ def generate(data):
 
 if __name__ == "__main__":
     def date_to_str(d):
-        return d.strftime("%Y-%m-%d")
+        return d.strftime(DATE_FORMAT)
 
     default = datetime.datetime.now()
     default_date = date_to_str(default)

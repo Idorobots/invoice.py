@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Faktura xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://crd.gov.pl/wzor/2025/06/25/13775/">
+  <Naglowek>
+    <KodFormularza kodSystemowy="FA (3)" wersjaSchemy="1-0E">FA</KodFormularza>
+    <WariantFormularza>3</WariantFormularza>
+    <DataWytworzeniaFa>{{issue_date}}T17:23:05.235235Z</DataWytworzeniaFa>
+    <SystemInfo>https://github.com/Idorobots/invoice.py</SystemInfo>
+  </Naglowek>
+  <Podmiot1>
+    <PrefiksPodatnika>PL</PrefiksPodatnika>
+    <DaneIdentyfikacyjne>
+      <NIP>{{issuer.id}}</NIP>
+      <Nazwa>{{issuer.name}}</Nazwa>
+    </DaneIdentyfikacyjne>
+    <Adres>
+      <KodKraju>{{issuer.address.country_code}}</KodKraju>
+      <AdresL1>{{issuer.address.street}}, {{issuer.address.city}}</AdresL1>
+    </Adres>
+  </Podmiot1>
+  <Podmiot2>
+    <DaneIdentyfikacyjne>
+      <NIP>{{recipient.id}}</NIP>
+      <Nazwa>{{recipient.name}}</Nazwa>
+    </DaneIdentyfikacyjne>
+    <Adres>
+      <KodKraju>{{recipient.address.country_code}}</KodKraju>
+      <AdresL1>{{recipient.address.street}}, {{recipient.address.city}}</AdresL1>
+    </Adres>
+    <JST>2</JST>
+    <GV>2</GV>
+  </Podmiot2>
+  <Fa>
+    <KodWaluty>{{currency}}</KodWaluty>
+    <P_1>{{issue_date}}</P_1>
+    <P_2>{{invoice_number}}</P_2>
+    <P_6>{{date_of_sale}}</P_6>
+    <P_13_1>{{total_net_amount}}</P_13_1>
+    <P_14_1>{{total_vat_amount}}</P_14_1>
+    <P_15>{{total_amount}}</P_15>
+    <Adnotacje>
+      <P_16>2</P_16>
+      <P_17>2</P_17>
+      <P_18>2</P_18>
+      <P_18A>2</P_18A>
+      <Zwolnienie>
+	<P_19N>1</P_19N>
+      </Zwolnienie>
+      <NoweSrodkiTransportu>
+	<P_22N>1</P_22N>
+      </NoweSrodkiTransportu>
+      <P_23>2</P_23>
+      <PMarzy>
+	<P_PMarzyN>1</P_PMarzyN>
+      </PMarzy>
+    </Adnotacje>
+    <RodzajFaktury>VAT</RodzajFaktury>
+    {{#items}}
+    <FaWiersz>
+      <NrWierszaFa>{{index}}</NrWierszaFa>
+      <P_7>{{name}} ({{name_translated}})</P_7>
+      <P_8A>{{quantity_unit}}</P_8A>
+      <P_8B>{{quantity}}</P_8B>
+      <P_9A>{{net_price}}</P_9A>
+      <P_11>{{net_amount}}</P_11>
+      <P_12>{{vat}}</P_12>
+    </FaWiersz>
+    {{/items}}
+  </Fa>
+  <Stopka>
+    <Informacje>
+      <StopkaFaktury>{{uuid}}</StopkaFaktury>
+    </Informacje>
+  </Stopka>
+</Faktura>
