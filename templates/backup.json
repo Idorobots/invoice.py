@@ -1,0 +1,33 @@
+{
+    "currency":"{{currency}}",
+    "currency_local":"{{currency_local}}",
+    "date_of_sale":"{{date_of_sale}}",
+    "due_date":"{{due_date}}",
+    "exchange_rate":"{{exchange_rate}}",
+    "exchange_rate_date":"{{exchange_rate_date}}",
+    "invoice_template":"{{invoice_template}}",
+    "invoice_number": "{{invoice_number}}",
+    "issuer_raw":{{{issuer_raw}}},
+    "issuer":"{{issuer_raw}}",
+    "issue_date":"{{issue_date}}",
+    "items_raw":[
+	{{#items_raw}}
+	{{{.}}},
+	{{/items_raw}}
+	{}
+    ],
+    "items":[
+	{{#items}}
+	"{{.}}",
+	{{/items}}
+	""
+    ],
+    "number":"{{number}}",
+    "number_format":"{{number_format}}",
+    "recipient_raw":{{{recipient_raw}}},
+    "recipient":"{{recipient}}",
+    "uuid":"{{uuid}}",
+    "year":"{{year}}",
+    "month":"{{month}}",
+    "day":"{{day}}"
+}
