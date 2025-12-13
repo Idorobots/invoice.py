@@ -29,5 +29,34 @@
     "uuid":"{{uuid}}",
     "year":"{{year}}",
     "month":"{{month}}",
-    "day":"{{day}}"
+    "day":"{{day}}",
+    "totals": {
+	"total_amount":{{total_amount}},
+	"total_net_amount":{{total_net_amount}},
+	"total_vat_amount":{{total_vat_amount}},
+	"total_amount_local":{{total_amount_local}},
+	"total_net_amount_local":{{total_net_amount_local}},
+	"total_vat_amount_local":{{total_vat_amount_local}}
+    },
+    "taxes":[
+	{{#taxes}}
+	{
+	    "vat": {{vat}},
+	    "exchange_rate": {{exchange_rate}},
+    	    "items":[
+		{{#items}}
+		"{{.}}",
+		{{/items}}
+		""
+	    ],
+	    "total_amount":{{total_amount}},
+	    "total_net_amount":{{total_net_amount}},
+	    "total_vat_amount":{{total_vat_amount}},
+	    "total_amount_local":{{total_amount_local}},
+	    "total_net_amount_local":{{total_net_amount_local}},
+	    "total_vat_amount_local":{{total_vat_amount_local}}
+	},
+	{{/taxes}}
+	{}
+    ]
 }
